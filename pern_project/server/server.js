@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// CONTROLLERS -- (do we need 3 controllers? or just one for all items. we cam refactor if needed. EJ)
+// CONTROLLERS -- (do we need 3 controllers? or just one for the entire shop? we can refactor if needed. EJ)
 const pantsController = require('./controllers/pants_controller');
 app.use('/api/pants', pantsController);
 
