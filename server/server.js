@@ -12,14 +12,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // CONTROLLERS -- (do we need 3 controllers? or just one for the entire shop? we can refactor if needed. EJ)
-const pantsController = require('./controllers/pants_controller');
-app.use('/api/pants', pantsController);
-
-const shirtsController = require('./controllers/shirts_controller');
-app.use('/api/shirts', shirtsController);
-
-const shoesController = require('./controllers/shoes');
-app.use('/api/shoes', shoesController);
+const shopController = require('./controllers/shop_controller');
+app.use('/api/shop', shopController);
 
 // LISTEN
 app.listen(4005, () => {
