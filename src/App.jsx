@@ -1,8 +1,8 @@
 import './App.css';
 import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-import Pants from './components/pants';
-import Shirts from './components/shirts';
-import Shoes from './components/shoes';
+import ContactInfo from './components/contactInfo';
+import Cart from './components/cart';
+import Shop from './components/shop'
 
 function App() {
   return (
@@ -14,22 +14,22 @@ function App() {
               <Link to='/'>Home</Link>
             </li>
             <li>
-              <Link to='/pants'>Pants</Link>
+              <Link to='/shop'>Shop</Link>
             </li>
             <li>
-              <Link to='/shirts'>Shirts</Link>
+              <Link to='/contactInfo'>Contact Info</Link>
             </li>
             <li>
-              <Link to='/shoes'>Shoes</Link>
+              <Link to='/cart'>Cart</Link>
             </li>
           </ul>
         </header>
         <main>
           <Routes>
             <Route path='/' />
-            <Route path='/pants' element={<Pants />} />
-            <Route path='/shirts' element={<Shirts />} />
-            <Route path='/shoes' element={<Shoes />} />
+            <Route path='/shop' element={<Shop />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/contactInfo' element={<ContactInfo />} />
           </Routes>
         </main>
         <h1> hello world!</h1>
