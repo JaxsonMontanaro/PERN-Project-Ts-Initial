@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
-import Shoes from "./Shoes";
-import Pants from "./Pants";
-import Shirts from "./Shirts";
+import Shoes from "./Shoes.jsx";
+import Pants from "./Pants.jsx";
+import Shirts from "./Shirts.jsx";
 
 export default function Shop() {
   const [products, setProducts] = useState([]);

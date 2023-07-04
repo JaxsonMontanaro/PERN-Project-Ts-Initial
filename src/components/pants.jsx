@@ -7,24 +7,32 @@ const supabase = createClient(
 );
 
 export default function Pants() {
-  // implement useState here
   const [Pants, setPants] = useState({});
   const [isPantsLoading, setIsPantsLoading] = useState(true);
+  const [count, setCount] = useState(0); // State for the variable
+
   async function getPants() {
     const { data, error } = await supabase
       .from("Products")
       .select()
       .eq("item_id", "2");
-    // setPants(data);
-    // console.log(data);
     setPants(data);
     setIsPantsLoading(false);
   }
+
+  const incrementCount = () => {
+    setCount(prevCount => prevCount + 1);
+  };
+  const decrementCount = () => {
+    setCount(prevCount => prevCount - 1);
+  };
+
   getPants();
+
   return (
     <div>
       <h1>Type of Item: {isPantsLoading ? "loading" : Pants[0].item_name}</h1>
-      <h1>Item ID: {isPantsLoading ? "loading" : Pants[0].item_id}</h1>
+      {/* <h1>Item ID: {isPantsLoading ? "loading" : Pants[0].item_id}</h1>
       <h1>
         Number available:{" "}
         {isPantsLoading ? "loading" : Pants[0].quantity_in_stock}
@@ -32,8 +40,12 @@ export default function Pants() {
       <h1>
         Number previously sold:{" "}
         {isPantsLoading ? "loading" : Pants[0].quantity_sold}
-      </h1>
+      </h1> */}
       <h1>Price: ${isPantsLoading ? "loading" : Pants[0].price}</h1>
+      <button onClick={incrementCount}>Increment</button>{" "}
+      <button onClick={decrementCount}>Decrement</button>{" "}
+      {/* Button to increment count */}
+      <p>Count: {count}</p> {/* Display the count */}
     </div>
   );
 }
