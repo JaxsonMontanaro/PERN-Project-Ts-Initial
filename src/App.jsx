@@ -1,9 +1,8 @@
-import './App.css';
-import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
-import ContactInfo from './components/ContactInfo';
-import Cart from './components/Cart';
-import Shop from './components/Shop';
-import Home from './components/Home';
+import "./App.css";
+import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
+import ContactInfo from "./components/ContactInfo";
+import Cart from "./components/Cart";
+import Shop from "./components/Shop";
 
 function App() {
   return (
@@ -27,11 +26,10 @@ function App() {
         </header>
         <main>
           <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/home' element={<Home />} />
-            <Route path='/shop' element={<Shop />} />
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/contactInfo' element={<ContactInfo />} />
+            <Route path="/" />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/contactInfo" element={<ContactInfo />} />
           </Routes>
         </main>
       </Router>

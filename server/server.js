@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// CONTROLLERS -- (do we need 3 controllers? or just one for the entire shop? we can refactor if needed. EJ)
+// CONTROLLERS 
 const shopController = require("./controllers/shop_controller");
 app.use("/api/shop", shopController);
 
