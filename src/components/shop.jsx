@@ -6,24 +6,16 @@ import Shirts from "./shirts.jsx";
 
 export default function Shop() {
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState({});
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/api/products/");
-      const json = await response.json();
-      setProducts(json);
-    };
-    fetchData();
-  }, []);
-
-  const updateCart = (itemId, count) => {
-    setCart(prevCart => ({
-      ...prevCart,
-      [itemId]: count,
-    }));
+  const fetchData = async () => {
+  const response = await fetch("http://localhost:3000/api/products/");
+  const json = await response.json();
+  setProducts(json);
   };
-
+  fetchData();
+  }, []);
+  
   return (
     <div>
       <h1>Shop</h1>
@@ -38,10 +30,9 @@ export default function Shop() {
           </li>
         ))}
       </ul>
-      <Shoes updateCart={updateCart} />
-      <Pants updateCart={updateCart} />
-      <Shirts updateCart={updateCart} />
-      {Object.keys(cart).length > 0 && <Cart cart={cart} />}
+      <Shoes />
+      <Pants />
+      <Shirts />
     </div>
   );
 }

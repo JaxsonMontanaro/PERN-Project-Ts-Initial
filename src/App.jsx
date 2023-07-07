@@ -5,6 +5,8 @@ import ContactInfo from './components/contactInfo';
 import Cart from './components/cart';
 import Shop from './components/shop';
 import Home from './components/home';
+import {BsCart4} from 'react-icons/bs';
+import logo from './assets/logo.png';
 
 function App() {
   return (
@@ -13,7 +15,7 @@ function App() {
         <header>
           <ul id='navbar'>
             <li>
-              <Link to='/home'>Home</Link>
+              <Link to='/home'><img id='logo'src={logo} alt="logo" /></Link>
             </li>
             <li>
               <Link to='/shop'>Shop</Link>
@@ -21,18 +23,23 @@ function App() {
             <li>
               <Link to='/contactInfo'>Contact Info</Link>
             </li>
-            <li>
-              <Link to='/cart'>Cart</Link>
+            <li id='cart-icon'>
+              <Link to='/cart'><BsCart4 /></Link>
             </li>
           </ul>
         </header>
         <main>
-          <Routes>
-            <Route path="/" />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/contactInfo" element={<ContactInfo />} />
-          </Routes>
+          <CartProvider>
+            {' '}
+            {/* Wrap the App content with CartProvider */}
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/home' element={<Home />} />
+              <Route path='/shop' element={<Shop />} />
+              <Route path='/cart' element={<Cart />} />
+              <Route path='/contactInfo' element={<ContactInfo />} />
+            </Routes>
+          </CartProvider>
         </main>
       </Router>
     </div>

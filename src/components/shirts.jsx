@@ -7,7 +7,7 @@ const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2d2Vrd29oYWZ6d29qcXdrdWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgwMDg4NDAsImV4cCI6MjAwMzU4NDg0MH0.hutfQaax4HpfhD-AiORLc4027L5xIK7E64YhGFtaeNE'
 );
 
-export default function Shirts({ updateCart }) {
+export default function Shirts() {
   const [Shirts, setShirts] = useState({});
   const [isShirtsLoading, setIsShirtsLoading] = useState(true);
   const [count, setCount] = useState(0);
