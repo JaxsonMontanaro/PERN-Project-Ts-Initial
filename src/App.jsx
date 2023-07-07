@@ -1,15 +1,17 @@
-import "./App.css";
-import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
-import ContactInfo from "./components/ContactInfo";
-import Cart from "./components/Cart";
-import Shop from "./components/Shop";
+import './App.css';
+import { BrowserRouter as Router, Link, Route, Routes } from 'react-router-dom';
+import { CartProvider } from './contexts/CartContext'; // Import the CartProvider
+import ContactInfo from './components/contactInfo';
+import Cart from './components/cart';
+import Shop from './components/shop';
+import Home from './components/home';
 
 function App() {
   return (
     <div className='App'>
       <Router>
         <header>
-          <ul>
+          <ul id='navbar'>
             <li>
               <Link to='/home'>Home</Link>
             </li>
