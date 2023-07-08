@@ -5,8 +5,8 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (item, quantity) => {
-    setCartItems((prevItems) => [...prevItems, { item, quantity }]);
+  const addToCart = (item, quantity, item_id) => { // Add 'item_id' parameter
+    setCartItems((prevItems) => [...prevItems, { item, quantity, item_id }]); // Include 'item_id'
   };
 
   const removeFromCart = (item) => {
@@ -19,9 +19,13 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
+  const addItems = (item, price, quantity, item_id) => { // Add 'item_id' parameter
+    setCartItems((prevItems) => [...prevItems, { item, price, quantity, item_id }]); // Include 'item_id'
+  };
+
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart }}
+      value={{ cartItems, addToCart, removeFromCart, clearCart, addItems }}
     >
       {children}
     </CartContext.Provider>

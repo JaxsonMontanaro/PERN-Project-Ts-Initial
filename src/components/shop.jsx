@@ -8,25 +8,21 @@ export default function Shop() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:3000/api/products/");
-      const json = await response.json();
-      setProducts(json);
-    };
     fetchData();
   }, []);
 
+  const fetchData = async () => {
+    try {
+      const response = await fetch("http://localhost:4005/api/shop");
+      const json = await response.json();
+      setProducts(json);
+    } catch (error) {
+      console.error('Failed to fetch shop items:', error);
+    }
+  };
+
   return (
     <div id="product-list">
-      {products.map((product, index) => (
-        <div key={index} style={{ paddingBottom: "25px" }}>
-          <div>{product.item_id}</div>
-          <div>{product.item_name}</div>
-          <div>{product.quantity_in_stock}</div>
-          <div>{product.quantity_sold}</div>
-          <div>{product.price}</div>
-        </div>
-      ))}
       <Shoes />
       <Pants />
       <Shirts />

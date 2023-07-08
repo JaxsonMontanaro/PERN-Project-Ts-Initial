@@ -13,8 +13,8 @@ const supabase = createClient(
 export default function Shirts() {
   const [shirts, setShirts] = useState({});
   const [isShirtsLoading, setIsShirtsLoading] = useState(true);
-  const [count, setCount] = useState(0);
-  const [updatedCount, setUpdatedCount] = useState(0);
+  const [updatedCount, setUpdatedCount] = useState(1);
+  const [quantityInStock, setQuantityInStock] = useState(0);
 
   const { addToCart } = useContext(CartContext);
 
@@ -28,6 +28,7 @@ export default function Shirts() {
       .select()
       .eq('item_id', '1');
     setShirts(data);
+    setQuantityInStock(data[0]?.quantity_in_stock || 0);
     setIsShirtsLoading(false);
   }
 
@@ -40,9 +41,8 @@ export default function Shirts() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setCount(updatedCount);
+    addToCart(shirts[0].item_name, updatedCount, shirts[0].item_id);
     getShirts();
-    addToCart(shirts[0].item_name, updatedCount);
   };
 
   const shirtsImages = [
@@ -117,8 +117,10 @@ export default function Shirts() {
         <button className="add-to-cart-btn" type="submit">
           Add to Cart
         </button>
+      <div className="quantity-in-stock">
+        {quantityInStock} in Stock
+      </div>
       </form>
-      <p>Cart: {count}</p>
     </div>
   );
 }

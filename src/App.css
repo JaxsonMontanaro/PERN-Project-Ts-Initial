@@ -17,6 +17,16 @@ body {
   margin: -2rem 0 -2rem 0;
 }
 
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#main-content {
+  flex: 1;
+}
+
 header {
   margin: auto;
   max-width: 1260px;
@@ -59,4 +69,8 @@ li a {
 #cart-icon:hover {
   transform: scale(1.5);
   rotate: -5deg;
+}
+
+footer {
+  flex-shrink: 0;
 }

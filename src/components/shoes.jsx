@@ -13,8 +13,8 @@ const supabase = createClient(
 export default function Shoes() {
   const [shoes, setShoes] = useState({});
   const [isShoesLoading, setIsShoesLoading] = useState(true);
-  const [count, setCount] = useState(0);
-  const [updatedCount, setUpdatedCount] = useState(0);
+  const [updatedCount, setUpdatedCount] = useState(1);
+  const [quantityInStock, setQuantityInStock] = useState(0);
 
   const { addToCart } = useContext(CartContext);
 
@@ -28,6 +28,7 @@ export default function Shoes() {
       .select()
       .eq('item_id', '3');
     setShoes(data);
+    setQuantityInStock(data[0]?.quantity_in_stock || 0);
     setIsShoesLoading(false);
   }
 
@@ -40,9 +41,9 @@ export default function Shoes() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setCount(updatedCount);
+    addToCart(shoes[0].item_name, updatedCount, shoes[0].item_id);
+    setUpdatedCount(0); // Reset the input field to 0
     getShoes();
-    addToCart(shoes[0].item_name, updatedCount);
   };
 
   const shoesImages = [
@@ -118,7 +119,9 @@ export default function Shoes() {
           Add to Cart
         </button>
       </form>
-      <p>Cart: {count}</p>
+      <div className="quantity-in-stock">
+        {quantityInStock} in Stock
+      </div>
     </div>
   );
 }

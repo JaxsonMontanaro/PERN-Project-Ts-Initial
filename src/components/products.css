@@ -113,6 +113,10 @@
     background-color: #31afc5;
 }
 
+.quantity-in-stock {
+    color: #f6ebe0;
+    text-align: end
+}
 
 /* 🔽Image Gallery Adjustments🔽 */
 @import "~react-image-gallery/styles/css/image-gallery.css";
