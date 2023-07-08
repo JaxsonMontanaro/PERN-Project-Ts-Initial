@@ -106,7 +106,7 @@ const Cart = () => {
         <>
           <ul id="cart-items">
             {cartItems.map((cartItem, index) => (
-              <li key={index}>
+              <li id="cart-item" key={index}>
                 <h2>{cartItem.item}</h2>
                 <h3>{cartItem.quantity}</h3>
                 <h3>${calculateItemTotal(cartItem)}</h3>

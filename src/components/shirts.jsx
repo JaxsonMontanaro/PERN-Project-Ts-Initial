@@ -42,8 +42,10 @@ export default function Shirts() {
   const handleSubmit = (event) => {
     event.preventDefault();
     addToCart(shirts[0].item_name, updatedCount, shirts[0].item_id);
+    setUpdatedCount(0); // Reset the input field to 0
     getShirts();
   };
+  
 
   const shirtsImages = [
     {

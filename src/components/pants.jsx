@@ -42,8 +42,10 @@ export default function Pants() {
   const handleSubmit = (event) => {
     event.preventDefault();
     addToCart(pants[0].item_name, updatedCount, pants[0].item_id);
+    setUpdatedCount(0); // Reset the input field to 0
     getPants();
   };
+  
 
   const pantsImages = [
     {
