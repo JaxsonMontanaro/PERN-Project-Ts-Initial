@@ -1,6 +1,9 @@
 import { createClient } from '@supabase/supabase-js';
-import { useContext, useState } from 'react';
-import { CartContext } from '../contexts/CartContext'; // Import CartContext
+import { useContext, useState, useEffect } from 'react';
+import { CartContext } from '../contexts/CartContext';
+import { ProgressBar } from 'react-loader-spinner';
+import ImageGallery from 'react-image-gallery';
+import './products.css';;
 
 const supabase = createClient(
   'https://tvwekwohafzwojqwkuaw.supabase.co',
@@ -8,12 +11,16 @@ const supabase = createClient(
 );
 
 export default function Shirts() {
-  const [Shirts, setShirts] = useState({});
+  const [shirts, setShirts] = useState({});
   const [isShirtsLoading, setIsShirtsLoading] = useState(true);
   const [count, setCount] = useState(0);
   const [updatedCount, setUpdatedCount] = useState(0);
 
-  const { addToCart } = useContext(CartContext); // Access addToCart function from CartContext
+  const { addToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    getShirts();
+  }, []);
 
   async function getShirts() {
     const { data, error } = await supabase
@@ -35,26 +42,82 @@ export default function Shirts() {
     event.preventDefault();
     setCount(updatedCount);
     getShirts();
-    addToCart(Shirts[0].item_name, updatedCount); // Add selected item and quantity to cart
+    addToCart(shirts[0].item_name, updatedCount);
   };
 
-  getShirts();
+  const shirtsImages = [
+    {
+      original: require('../assets/Shirts/shirt-1.png')
+    },
+    {
+      original: require('../assets/Shirts/shirt-2.png')
+    },
+    {
+      original: require('../assets/Shirts/shirt-3.png')
+    },
+    {
+      original: require('../assets/Shirts/shirt-4.png')
+    },
+  ];
+
+  const loadingBar = (
+    <ProgressBar
+      height="60"
+      width="100"
+      ariaLabel="progress-bar-loading"
+      wrapperStyle={{}}
+      wrapperClass="progress-bar-wrapper"
+      borderColor="#f6ebe0"
+      barColor="#198fa5"
+    />
+  );
 
   return (
     <div>
-      <h1>Type of Item: {isShirtsLoading ? 'loading' : Shirts[0].item_name}</h1>
-      <h1>Price: ${isShirtsLoading ? 'loading' : Shirts[0].price}</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Quantity:
-          <input
-            type='number'
-            value={updatedCount}
-            onChange={handleInputChange}
-          />
+      <div id="image-gallery">
+        <ImageGallery items={shirtsImages} />
+      </div>
+      <div id="title-price">
+        <h1 className="product-title">
+          {isShirtsLoading ? loadingBar : shirts[0].item_name}
+        </h1>
+        <h1 className="product-price">
+          ${isShirtsLoading ? loadingBar : shirts[0].price}
+        </h1>
+      </div>
+      <form className="add-to-cart-form" onSubmit={handleSubmit}>
+        <label className="to-cart-label">
+          <div className="quantity-input">
+            <button
+              className="minus-btn"
+              type="button"
+              onClick={() => {
+                if (updatedCount > 0) {
+                  setUpdatedCount(updatedCount - 1);
+                }
+              }}
+            >
+              -
+            </button>
+            <input
+              id="input-field"
+              type="number"
+              value={updatedCount}
+              onChange={handleInputChange}
+            />
+            <button
+              className="add-btn"
+              type="button"
+              onClick={() => setUpdatedCount(updatedCount + 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <button type='submit'>Update cart</button>
-      </form>{' '}
+        <button className="add-to-cart-btn" type="submit">
+          Add to Cart
+        </button>
+      </form>
       <p>Cart: {count}</p>
     </div>
   );

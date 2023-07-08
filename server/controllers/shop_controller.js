@@ -3,7 +3,7 @@ const db = require('../models');
 const { Shop } = db;
 
 // GET All shop items
-shop.get('/', async (req, res) => {
+shop.get('/shop', async (req, res) => {
   try {
     const foundShop = await shop.findAll();
     res.status(200).json(foundShop);

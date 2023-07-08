@@ -1,19 +1,26 @@
 import { createClient } from '@supabase/supabase-js';
-import { useContext, useState } from 'react';
-import { CartContext } from '../contexts/CartContext'; // Import CartContext
+import { useContext, useState, useEffect } from 'react';
+import { CartContext } from '../contexts/CartContext';
+import { ProgressBar } from 'react-loader-spinner';
+import ImageGallery from 'react-image-gallery';
+import './products.css';
 
 const supabase = createClient(
-  'https://tvwekwohafzwojqwkuaw.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2d2Vrd29oYWZ6d29qcXdrdWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgwMDg4NDAsImV4cCI6MjAwMzU4NDg0MH0.hutfQaax4HpfhD-AiORLc4027L5xIK7E64YhGFtaeNE'
+  "https://tvwekwohafzwojqwkuaw.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2d2Vrd29oYWZ6d29qcXdrdWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgwMDg4NDAsImV4cCI6MjAwMzU4NDg0MH0.hutfQaax4HpfhD-AiORLc4027L5xIK7E64YhGFtaeNE"
 );
 
 export default function Pants() {
-  const [Pants, setPants] = useState({});
+  const [pants, setPants] = useState({});
   const [isPantsLoading, setIsPantsLoading] = useState(true);
   const [count, setCount] = useState(0);
   const [updatedCount, setUpdatedCount] = useState(0);
 
-  const { addToCart } = useContext(CartContext); // Access addToCart function from CartContext
+  const { addToCart } = useContext(CartContext);
+
+  useEffect(() => {
+    getPants();
+  }, []);
 
   async function getPants() {
     const { data, error } = await supabase
@@ -35,26 +42,82 @@ export default function Pants() {
     event.preventDefault();
     setCount(updatedCount);
     getPants();
-    addToCart(Pants[0].item_name, updatedCount); // Add selected item and quantity to cart
+    addToCart(pants[0].item_name, updatedCount);
   };
 
-  getPants();
+  const pantsImages = [
+    {
+      original: require('../assets/Pants/pants-1.png')
+    },
+    {
+      original: require('../assets/Pants/pants-2.png')
+    },
+    {
+      original: require('../assets/Pants/pants-3.png')
+    },
+    {
+      original: require('../assets/Pants/pants-4.png')
+    },
+  ];
+
+  const loadingBar = (
+    <ProgressBar
+      height="60"
+      width="100"
+      ariaLabel="progress-bar-loading"
+      wrapperStyle={{}}
+      wrapperClass="progress-bar-wrapper"
+      borderColor="#f6ebe0"
+      barColor="#198fa5"
+    />
+  );
 
   return (
     <div>
-      <h1>Type of Item: {isPantsLoading ? 'loading' : Pants[0].item_name}</h1>
-      <h1>Price: ${isPantsLoading ? 'loading' : Pants[0].price}</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Quantity:
-          <input
-            type='number'
-            value={updatedCount}
-            onChange={handleInputChange}
-          />
+      <div id="image-gallery">
+        <ImageGallery items={pantsImages} />
+      </div>
+      <div id="title-price">
+        <h1 className="product-title">
+          {isPantsLoading ? loadingBar : pants[0].item_name}
+        </h1>
+        <h1 className="product-price">
+          ${isPantsLoading ? loadingBar : pants[0].price}
+        </h1>
+      </div>
+      <form className="add-to-cart-form" onSubmit={handleSubmit}>
+        <label className="to-cart-label">
+          <div className="quantity-input">
+            <button
+              className="minus-btn"
+              type="button"
+              onClick={() => {
+                if (updatedCount > 0) {
+                  setUpdatedCount(updatedCount - 1);
+                }
+              }}
+            >
+              -
+            </button>
+            <input
+              id="input-field"
+              type="number"
+              value={updatedCount}
+              onChange={handleInputChange}
+            />
+            <button
+              className="add-btn"
+              type="button"
+              onClick={() => setUpdatedCount(updatedCount + 1)}
+            >
+              +
+            </button>
+          </div>
         </label>
-        <button type='submit'>Update cart</button>
-      </form>{' '}
+        <button className="add-to-cart-btn" type="submit">
+          Add to Cart
+        </button>
+      </form>
       <p>Cart: {count}</p>
     </div>
   );

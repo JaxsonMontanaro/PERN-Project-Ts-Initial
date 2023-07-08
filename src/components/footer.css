@@ -20,9 +20,13 @@
 }
 
 #contributors a:hover {
-    text-decoration: underline wavy;
+    color: #31afc5;
 }
 
 #links {
     font-size: 6rem;
+}
+
+#links a:hover {
+    color: #31afc5;
 }
