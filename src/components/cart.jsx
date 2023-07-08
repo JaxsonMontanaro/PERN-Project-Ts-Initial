@@ -1,9 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import { createClient } from '@supabase/supabase-js';
-import './cart.css';
-import sadCart from '../assets/sad-cart.png';
-import { BsTrashFill } from 'react-icons/bs';
+import './cart.css'
+import sadCart from '../assets/sad-cart.png'
+import {BsTrashFill} from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 const supabase = createClient(
