@@ -52,10 +52,11 @@ li a {
 }
 
 #cart-icon {
+  transform: scale(1.4);
   transition: .15s;
 }
 
 #cart-icon:hover {
-  scale: 105%;
+  transform: scale(1.5);
   rotate: -5deg;
 }
