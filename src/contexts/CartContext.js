@@ -5,8 +5,23 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  const addToCart = (item, quantity, item_id) => { // Add 'item_id' parameter
-    setCartItems((prevItems) => [...prevItems, { item, quantity, item_id }]); // Include 'item_id'
+  const addToCart = (name, quantity, itemId) => {
+    const existingItem = cartItems.find((item) => item.item_id === itemId);
+    if (existingItem) {
+      const updatedItems = cartItems.map((item) =>
+        item.item_id === itemId
+          ? { ...item, quantity: item.quantity + quantity }
+          : item
+      );
+      setCartItems(updatedItems);
+    } else {
+      const newItem = {
+        item: name,
+        quantity: quantity,
+        item_id: itemId,
+      };
+      setCartItems([...cartItems, newItem]);
+    }
   };
 
   const removeFromCart = (item) => {
@@ -19,16 +34,11 @@ export const CartProvider = ({ children }) => {
     setCartItems([]);
   };
 
-  const addItems = (item, price, quantity, item_id) => { // Add 'item_id' parameter
-    setCartItems((prevItems) => [...prevItems, { item, price, quantity, item_id }]); // Include 'item_id'
-  };
-
   return (
     <CartContext.Provider
-      value={{ cartItems, addToCart, removeFromCart, clearCart, addItems }}
+      value={{ cartItems, addToCart, removeFromCart, clearCart }}
     >
       {children}
     </CartContext.Provider>
   );
 };
-

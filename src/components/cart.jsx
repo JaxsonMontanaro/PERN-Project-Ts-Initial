@@ -74,7 +74,7 @@ const Cart = () => {
 
   const calculateItemTotal = (item) => {
     const price = itemPrices[item.item_id?.toString()]?.price;
-    return price ? price * item.quantity : 0;
+    return price ? (price * item.quantity).toFixed(2) : 0;
   };
 
   const calculateCartTotal = () => {
@@ -85,7 +85,7 @@ const Cart = () => {
         total += price * item.quantity;
       }
     });
-    return total;
+    return total.toFixed(2);
   };
 
   const handleCheckout = async () => {
