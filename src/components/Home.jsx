@@ -9,7 +9,8 @@ export default function Home() {
   return (
     <div>
       <div id="store-title">
-        <h1>Sequelizers Apperal</h1>
+        <h1>Sequelizers Apparel
+        </h1>
         <h3>Shop around  our latest <small>(data)</small>types of styles!</h3>
       </div>
       <div className="img-carousel">

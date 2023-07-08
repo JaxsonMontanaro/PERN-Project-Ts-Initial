@@ -5,6 +5,7 @@ import './cart.css';
 import sadCart from '../assets/sad-cart.png';
 import { BsTrashFill } from 'react-icons/bs';
 
+
 const supabase = createClient(
   'https://tvwekwohafzwojqwkuaw.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR2d2Vrd29oYWZ6d29qcXdrdWF3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2ODgwMDg4NDAsImV4cCI6MjAwMzU4NDg0MH0.hutfQaax4HpfhD-AiORLc4027L5xIK7E64YhGFtaeNE'
@@ -151,7 +152,9 @@ const Cart = () => {
             <h2>Total: ${calculateCartTotal()}</h2>
           </div>
           <button onClick={() => handleClearCart()}>Clear Cart</button>
-          <button onClick={() => handleCheckout()}>Checkout</button>
+          <Link to="/congrats">
+          <button id='button'  onClick={() => handleCheckout()}>Checkout</button>
+          </Link>
         </>
       )}
     </div>

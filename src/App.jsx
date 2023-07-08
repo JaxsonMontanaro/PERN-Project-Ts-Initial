@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import Footer from "./components/footer";
 import { BsCart4 } from "react-icons/bs";
 import logo from "./assets/logo.png";
+import Congrats from "./components/congrats";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
                 <Route path="/shop" element={<Shop />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/contactInfo" element={<ContactInfo />} />
+                <Route path="/congrats" element={<Congrats />} />
               </Routes>
             </CartProvider>
           </main>
