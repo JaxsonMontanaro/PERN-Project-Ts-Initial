@@ -1,0 +1,31 @@
+#cart {
+    text-align: center;
+}
+
+#empty-cart h1 {
+    font-size: xx-large;
+    padding: 1rem;
+}
+
+#empty-cart img {
+    width: 600px;
+    padding: 2rem;
+}
+
+#cart-item {
+    display: inline-block;
+    position: relative;
+}
+
+#cart-items li {
+    text-decoration: none;
+    display: block;
+    padding: 1.5rem;
+    font-size: larger;
+}
+
+.delete-btn {
+    color: #f6ebe0;
+    cursor: pointer;
+    font-size: 2rem;
+}
