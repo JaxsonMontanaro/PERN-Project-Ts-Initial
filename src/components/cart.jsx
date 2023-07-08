@@ -4,6 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 import './cart.css'
 import sadCart from '../assets/sad-cart.png'
 import {BsTrashFill} from 'react-icons/bs';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const supabase = createClient(
   'https://tvwekwohafzwojqwkuaw.supabase.co',
@@ -120,7 +122,9 @@ const Cart = () => {
             <h2>Total: ${calculateCartTotal()}</h2>
           </div>
           <button onClick={() => handleClearCart()}>Clear Cart</button>
-          <button onClick={() => handleCheckout()}>Checkout</button>
+          <Link to="/congrats">
+          <button id='button'  onClick={() => handleCheckout()}>Checkout</button>
+          </Link>
         </>
       )}
     </div>
