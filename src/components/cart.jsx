@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CartContext } from '../contexts/CartContext';
 import { createClient } from '@supabase/supabase-js';
-import './cart.css'
-import sadCart from '../assets/sad-cart.png'
-import {BsTrashFill} from 'react-icons/bs';
+import './cart.css';
+import sadCart from '../assets/sad-cart.png';
+import { BsTrashFill } from 'react-icons/bs';
 
 const supabase = createClient(
   'https://tvwekwohafzwojqwkuaw.supabase.co',
@@ -11,7 +11,8 @@ const supabase = createClient(
 );
 
 const Cart = () => {
-  const { cartItems, removeFromCart, clearCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, clearCart, setCartItems } =
+    useContext(CartContext);
   const [itemPrices, setItemPrices] = useState({});
 
   useEffect(() => {
@@ -20,7 +21,9 @@ const Cart = () => {
 
   const fetchItemPrices = async () => {
     try {
-      const { data: products, error } = await supabase.from('Products').select('item_id, price, quantity_in_stock, quantity_sold');
+      const { data: products, error } = await supabase
+        .from('Products')
+        .select('item_id, price, quantity_in_stock, quantity_sold');
       if (products) {
         const prices = {};
         products.forEach((product) => {
@@ -56,7 +59,10 @@ const Cart = () => {
 
         await supabase
           .from('Products')
-          .update({ quantity_in_stock: updatedQuantityInStock, quantity_sold: updatedQuantitySold })
+          .update({
+            quantity_in_stock: updatedQuantityInStock,
+            quantity_sold: updatedQuantitySold,
+          })
           .eq('item_id', itemId);
       }
     } catch (error) {
@@ -95,28 +101,53 @@ const Cart = () => {
     // Redirect to success page or display a success message
   };
 
+  const handleIncrement = (item) => {
+    const updatedItems = cartItems.map((cartItem) =>
+      cartItem.item === item.item
+        ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        : cartItem
+    );
+    setCartItems(updatedItems);
+  };
+
+  const handleDecrement = (item) => {
+    const updatedItems = cartItems.map((cartItem) =>
+      cartItem.item === item.item && cartItem.quantity > 1
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+    setCartItems(updatedItems);
+  };
+
   return (
-    <div id="cart">
+    <div id='cart'>
       {cartItems.length === 0 ? (
-        <div id="empty-cart">
+        <div id='empty-cart'>
           <h1>Your cart is empty.</h1>
-          <img src={sadCart} alt="sad cart" />
+          <img src={sadCart} alt='sad cart' />
         </div>
       ) : (
         <>
-          <ul id="cart-items">
+          <ul id='cart-items'>
             {cartItems.map((cartItem, index) => (
-              <li id="cart-item" key={index}>
+              <li id='cart-item' key={index}>
                 <h2>{cartItem.item}</h2>
-                <h3>{cartItem.quantity}</h3>
+                <h3>
+                  <button onClick={() => handleDecrement(cartItem)}>-</button>
+                  {cartItem.quantity}
+                  <button onClick={() => handleIncrement(cartItem)}>+</button>
+                </h3>
                 <h3>${calculateItemTotal(cartItem)}</h3>
-                <i className="delete-btn" onClick={() => handleRemove(cartItem.item)}>
+                <i
+                  className='delete-btn'
+                  onClick={() => handleRemove(cartItem.item)}
+                >
                   <BsTrashFill />
                 </i>
               </li>
             ))}
           </ul>
-          <div id="cart-total">
+          <div id='cart-total'>
             <h2>Total: ${calculateCartTotal()}</h2>
           </div>
           <button onClick={() => handleClearCart()}>Clear Cart</button>
