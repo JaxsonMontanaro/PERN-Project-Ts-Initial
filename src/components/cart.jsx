@@ -5,7 +5,6 @@ import './cart.css'
 import sadCart from '../assets/sad-cart.png'
 import {BsTrashFill} from 'react-icons/bs';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom';
 
 
 const supabase = createClient(
