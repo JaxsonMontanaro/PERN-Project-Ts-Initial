@@ -1,16 +1,33 @@
-const shop = require('express').Router();
+const products = require('express').Router();
 const db = require('../models');
-const { Shop } = db;
+const { Products } = db;
 
 // GET All shop items
-shop.get('/', async (req, res) => {
+products.get('/', async (req, res) => {
   try {
-    const foundShop = await shop.findAll();
-    res.status(200).json(foundShop);
+    const foundProducts = await Products.findAll();
+    res.status(200).json(foundProducts);
   } catch (err) {
-    res.status(500).send('Server error');
+    res.status(500).send(`Server error: ${err}`);
     console.log(err);
   }
 });
 
-module.exports = shop;
+// PATCH Update a shop item
+products.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { quantity_in_stock, quantity_sold } = req.body;
+
+  try {
+    const updatedProduct = await Products.update(
+      { quantity_in_stock, quantity_sold },
+      { where: { item_id: id } }
+    );
+    res.status(200).json(updatedProduct);
+  } catch (err) {
+    res.status(500).send(`Server error: ${err}`);
+    console.log(err);
+  }
+});
+
+module.exports = products;
