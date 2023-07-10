@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { useContext, useState, useEffect } from 'react';
 import { CartContext } from '../contexts/CartContext';
-import { ProgressBar } from 'react-loader-spinner';
+import { ProgressBar, ThreeCircles } from 'react-loader-spinner';
 import ImageGallery from 'react-image-gallery';
 import './products.css';;
 
@@ -15,6 +15,7 @@ export default function Shirts() {
   const [isShirtsLoading, setIsShirtsLoading] = useState(true);
   const [updatedCount, setUpdatedCount] = useState(1);
   const [quantityInStock, setQuantityInStock] = useState(0);
+  const [loadingImages, setLoadingImages] = useState(true);
 
   const { addToCart } = useContext(CartContext);
 
@@ -30,6 +31,7 @@ export default function Shirts() {
     setShirts(data);
     setQuantityInStock(data[0]?.quantity_in_stock || 0);
     setIsShirtsLoading(false);
+    setLoadingImages(false);
   }
 
   const handleInputChange = (event) => {
@@ -74,10 +76,25 @@ export default function Shirts() {
     />
   );
 
+  const loadingSpinner = (
+    <ThreeCircles
+      height="100"
+      width="100"
+      color="#f6ebe0"
+      wrapperStyle={{}}
+      wrapperClass=""
+      visible={true}
+      ariaLabel="three-circles-rotating"
+      outerCircleColor="#f6ebe0"
+      innerCircleColor="#31afc5"
+      middleCircleColor="#d72f48"
+    />
+  )
+
   return (
     <div>
       <div id="image-gallery">
-        <ImageGallery items={shirtsImages} />
+      {loadingImages ? loadingSpinner : <ImageGallery autoPlay={true} items={shirtsImages} />}
       </div>
       <div id="title-price">
         <h1 className="product-title">

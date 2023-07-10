@@ -1,6 +1,9 @@
 .contactInfo{
     text-align: center;
     color: white;
+    max-width: 1260px;
+    margin: 2rem auto;
+    padding: 2rem;
 }
 
 .j{
