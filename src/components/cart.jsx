@@ -134,10 +134,10 @@ const Cart = () => {
             {cartItems.map((cartItem, index) => (
               <li id='cart-item' key={index}>
                 <h2>{cartItem.item}</h2>
-                <h3>
-                  <button onClick={() => handleDecrement(cartItem)}>-</button>
-                  {cartItem.quantity}
-                  <button onClick={() => handleIncrement(cartItem)}>+</button>
+                <h3 id='cart-item-amount'>
+                  <button className='minus-btn for-cart' onClick={() => handleDecrement(cartItem)}>-</button>
+                  <p className='amount-in-cart'>{cartItem.quantity}</p>
+                  <button className='add-btn for-cart' onClick={() => handleIncrement(cartItem)}>+</button>
                 </h3>
                 <h3>${calculateItemTotal(cartItem)}</h3>
                 <i
@@ -146,16 +146,19 @@ const Cart = () => {
                 >
                   <BsTrashFill />
                 </i>
+                
               </li>
             ))}
           </ul>
           <div id='cart-total'>
             <h2>Total: ${calculateCartTotal()}</h2>
           </div>
-          <button onClick={() => handleClearCart()}>Clear Cart</button>
-          <Link to="/congrats">
-          <button id='button'  onClick={() => handleCheckout()}>Checkout</button>
-          </Link>
+          <div id='cart-btns'>
+            <button className="add-to-cart-btn" onClick={() => handleClearCart()}>Clear Cart</button>
+            <Link to="/congrats">
+            <button className="add-to-cart-btn" id='button'  onClick={() => handleCheckout()}>Checkout</button>
+            </Link>
+          </div>
         </>
       )}
     </div>
