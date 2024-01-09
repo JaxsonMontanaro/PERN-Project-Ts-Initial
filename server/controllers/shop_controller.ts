@@ -1,11 +1,12 @@
-const products = require('express').Router();
+import { Router, Request, Response } from 'express';
+import { Model } from 'sequelize/types';
 const db = require('../models');
+
+const products = Router();
 const { Products } = db;
 
-
-
 // GET All shop items
-products.get('/', async (req, res) => {
+products.get('/', async (req: Request, res: Response) => {
   try {
     const foundProducts = await Products.findAll();
     res.status(200).json(foundProducts);
@@ -16,7 +17,7 @@ products.get('/', async (req, res) => {
 });
 
 // PATCH Update a shop item
-products.patch('/:id', async (req, res) => {
+products.patch('/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   const { quantity_in_stock, quantity_sold } = req.body;
 
@@ -32,4 +33,4 @@ products.patch('/:id', async (req, res) => {
   }
 });
 
-module.exports = products;
+export default products;

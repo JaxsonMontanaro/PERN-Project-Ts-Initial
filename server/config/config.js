@@ -1,26 +1,23 @@
-require("dotenv").config();
-
-module.exports = {
-  development: {
-    username: "postgres",
-    password: "sequelizersFTW",
-    database: "postgres",
-    host: "db.tvwekwohafzwojqwkuaw.supabase.co",
-    logging: true,
-    dialect: "postgres",
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
-  test: {
-    username: "postgres",
-    password: "sequelizersFTW",
-    database: "postgres",
-    host: "db.tvwekwohafzwojqwkuaw.supabase.co",
-    dialect: "postgres",
+  "test": {
+    "username": "root",
+    "password": null,
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
-  production: {
-    username: "postgres",
-    password: "sequelizersFTW",
-    database: "postgres",
-    host: "db.tvwekwohafzwojqwkuaw.supabase.co",
-    dialect: "postgres",
-  },
-};
+  "production": {
+    "username": "root",
+    "password": null,
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
